@@ -26,7 +26,7 @@ fun Double.asPrice() = "$" + String.format(Locale.US, "%.2f", this)
 fun PriceRow(product: Product, modifier: Modifier = Modifier, showOriginalPrice: Boolean = true) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(

@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -47,22 +48,35 @@ fun CartItemCard(
                     .clip(RoundedCornerShape(8.dp)),
             )
             Spacer(Modifier.width(12.dp))
+            // Doc anatomy: title + stepper on top row, price + red trash below.
             Column(Modifier.weight(1f)) {
-                Text(
-                    item.product.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    item.product.price.asPrice(),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                QuantityStepper(item.quantity, onDecrease, onIncrease)
-            }
-            IconButton(onClick = onRemove) {
-                Icon(Icons.Default.Delete, contentDescription = "Remove ${item.product.title}")
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        item.product.title,
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.titleSmall,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    QuantityStepper(item.quantity, onDecrease, onIncrease)
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        item.product.price.asPrice(),
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                    )
+                    IconButton(onClick = onRemove) {
+                        Icon(
+                            Icons.Default.Delete,
+                            contentDescription = "Remove ${item.product.title}",
+                            tint = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                }
             }
         }
     }
