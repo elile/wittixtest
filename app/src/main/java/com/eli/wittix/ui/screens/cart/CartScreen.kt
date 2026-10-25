@@ -1,4 +1,4 @@
-package com.eli.wittix.screens.cart
+package com.eli.wittix.ui.screens.cart
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

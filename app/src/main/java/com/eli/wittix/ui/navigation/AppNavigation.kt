@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.eli.wittix.screens.cart.CartScreen
-import com.eli.wittix.screens.productdetail.ProductDetailScreen
-import com.eli.wittix.screens.productlist.ProductListScreen
+import com.eli.wittix.ui.screens.cart.CartScreen
+import com.eli.wittix.ui.screens.productdetail.ProductDetailScreen
+import com.eli.wittix.ui.screens.productlist.ProductListScreen
 
 @Composable
 fun AppNavigation() {

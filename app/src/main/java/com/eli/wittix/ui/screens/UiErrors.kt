@@ -1,4 +1,4 @@
-package com.eli.wittix.screens
+package com.eli.wittix.ui.screens
 
 import java.io.IOException
 

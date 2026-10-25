@@ -1,4 +1,4 @@
-package com.eli.wittix.screens.productdetail
+package com.eli.wittix.ui.screens.productdetail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

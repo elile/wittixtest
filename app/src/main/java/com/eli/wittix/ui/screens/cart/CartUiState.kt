@@ -1,4 +1,4 @@
-package com.eli.wittix.screens.cart
+package com.eli.wittix.ui.screens.cart
 
 import com.eli.wittix.domain.models.Cart
 

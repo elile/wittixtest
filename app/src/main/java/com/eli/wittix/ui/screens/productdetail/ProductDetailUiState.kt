@@ -1,4 +1,4 @@
-package com.eli.wittix.screens.productdetail
+package com.eli.wittix.ui.screens.productdetail
 
 import com.eli.wittix.domain.models.ProductDetails
 

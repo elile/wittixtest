@@ -1,4 +1,4 @@
-package com.eli.wittix.screens.productlist
+package com.eli.wittix.ui.screens.productlist
 
 import com.eli.wittix.domain.models.Category
 import com.eli.wittix.domain.models.Product

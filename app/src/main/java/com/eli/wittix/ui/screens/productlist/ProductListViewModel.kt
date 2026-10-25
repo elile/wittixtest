@@ -1,10 +1,10 @@
-package com.eli.wittix.screens.productlist
+package com.eli.wittix.ui.screens.productlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eli.wittix.domain.ICartRepository
 import com.eli.wittix.domain.IProductsRepository
-import com.eli.wittix.screens.userMessage
+import com.eli.wittix.ui.screens.userMessage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job

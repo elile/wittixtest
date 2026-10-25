@@ -1,4 +1,4 @@
-package com.eli.wittix.screens.productlist
+package com.eli.wittix.ui.screens.productlist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

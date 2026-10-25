@@ -1,4 +1,4 @@
-package com.eli.wittix.screens.productdetail
+package com.eli.wittix.ui.screens.productdetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.eli.wittix.domain.ICartRepository
 import com.eli.wittix.domain.IProductDetailsRepository
-import com.eli.wittix.screens.userMessage
+import com.eli.wittix.ui.screens.userMessage
 import com.eli.wittix.ui.navigation.ProductDetailRoute
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

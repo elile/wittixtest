@@ -1,10 +1,10 @@
-package com.eli.wittix.screens.cart
+package com.eli.wittix.ui.screens.cart
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eli.wittix.domain.ICartRepository
 import com.eli.wittix.domain.models.CartItem
-import com.eli.wittix.screens.userMessage
+import com.eli.wittix.ui.screens.userMessage
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
