@@ -1,0 +1,19 @@
+package com.eli.wittix.ui.components
+
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createComposeRule
+import com.eli.wittix.theme.WittixTheme
+import org.junit.Assert.assertEquals
+import org.junit.Rule
+import org.junit.Test
+
+class RatingRowTest {
+    @get:Rule val rule = createComposeRule()
+
+    @Test
+    fun roundsToOneDecimal() {
+        rule.setContent { WittixTheme { RatingRow(4.94) } }
+        rule.onNodeWithText("4.9").assertIsDisplayed()
+        rule.onNodeWithContentDescription("Rating").assertIsDisplayed()
+    }
+}
