@@ -34,12 +34,17 @@ fun CartItemCard(
     onRemove: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ElevatedCard(modifier = modifier, elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)) {
+    ElevatedCard(
+        modifier = modifier,
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
+    ) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             ProductImage(
                 item.product.thumbnail,
                 contentDescription = null,
-                modifier = Modifier.size(72.dp).clip(RoundedCornerShape(8.dp)),
+                modifier = Modifier
+                    .size(72.dp)
+                    .clip(RoundedCornerShape(8.dp)),
             )
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f)) {
@@ -66,5 +71,17 @@ fun CartItemCard(
 @Preview
 @Composable
 private fun CartItemCardPreview() = ProductCatalogTheme {
-    CartItemCard(CartItem(Product(1, "Essence Mascara Lash Princess", 9.99, 7.17, 4.94, 5, "beauty", ""), quantity = 2), onDecrease = {}, onIncrease = {}, onRemove = {})
+    CartItemCard(
+        CartItem(
+            Product(
+                1,
+                "Essence Mascara Lash Princess",
+                9.99,
+                7.17,
+                4.94,
+                5,
+                "beauty",
+                ""
+            ), quantity = 2
+        ), onDecrease = {}, onIncrease = {}, onRemove = {})
 }

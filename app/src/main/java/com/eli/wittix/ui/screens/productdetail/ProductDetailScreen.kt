@@ -72,7 +72,13 @@ fun ProductDetailContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(details?.product?.title.orEmpty(), maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                title = {
+                    Text(
+                        details?.product?.title.orEmpty(),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -85,7 +91,9 @@ fun ProductDetailContent(
                 AddToCartButton(
                     enabled = details.product.inStock,
                     onClick = onAddToCart,
-                    modifier = Modifier.navigationBarsPadding().padding(16.dp),
+                    modifier = Modifier
+                        .navigationBarsPadding()
+                        .padding(16.dp),
                 )
             }
         },
@@ -108,17 +116,27 @@ private fun DetailsBody(details: ProductDetails, modifier: Modifier) {
         ProductImage(
             details.heroImage,
             contentDescription = product.title,
-            modifier = Modifier.fillMaxWidth().height(300.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp),
         )
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             SuggestionChip(onClick = {}, label = { Text(product.category) })
-            Text(product.title, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            Text(
+                product.title,
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
+            )
             RatingRow(product.rating)
             StockIndicator(product.stock)
             PriceRow(product)
             details.brand?.let { Text("Brand: $it", style = MaterialTheme.typography.bodyMedium) }
             HorizontalDivider(Modifier.padding(vertical = 8.dp))
-            Text("Description", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+            Text(
+                "Description",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold
+            )
             Text(details.description, style = MaterialTheme.typography.bodyMedium)
         }
     }
@@ -130,7 +148,16 @@ private fun ProductDetailPreview() = ProductCatalogTheme {
     ProductDetailContent(
         state = ProductDetailUiState(
             product = ProductDetails(
-                product = Product(1, "Essence Mascara Lash Princess", 9.99, 7.17, 4.94, 5, "beauty", ""),
+                product = Product(
+                    1,
+                    "Essence Mascara Lash Princess",
+                    9.99,
+                    7.17,
+                    4.94,
+                    5,
+                    "beauty",
+                    ""
+                ),
                 description = "A popular mascara known for its volumizing and lengthening effects.",
                 brand = "Essence",
                 images = emptyList(),

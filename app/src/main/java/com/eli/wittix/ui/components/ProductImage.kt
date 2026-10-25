@@ -28,4 +28,5 @@ fun ProductImage(url: String, contentDescription: String?, modifier: Modifier = 
 
 @Preview
 @Composable
-private fun ProductImagePreview() = ProductCatalogTheme { ProductImage("", contentDescription = null, Modifier.size(72.dp)) }
+private fun ProductImagePreview() =
+    ProductCatalogTheme { ProductImage("", contentDescription = null, Modifier.size(72.dp)) }

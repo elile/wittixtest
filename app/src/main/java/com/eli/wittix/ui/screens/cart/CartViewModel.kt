@@ -15,7 +15,11 @@ class CartViewModel(private val repository: ICartRepository) : ViewModel() {
     val state = repository.observeCart()
         .map { CartUiState(cart = it) }
         .catch { emit(CartUiState(error = it.userMessage())) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CartUiState(isLoading = true))
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
+            CartUiState(isLoading = true)
+        )
 
     fun increase(item: CartItem) = setQuantity(item, item.quantity + 1)
 

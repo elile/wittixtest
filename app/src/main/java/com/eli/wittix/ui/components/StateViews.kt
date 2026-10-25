@@ -30,7 +30,12 @@ fun LoadingState(modifier: Modifier = Modifier) {
 @Composable
 fun EmptyState(icon: ImageVector, title: String, message: String, modifier: Modifier = Modifier) {
     CenteredColumn(modifier) {
-        Icon(icon, contentDescription = null, modifier = Modifier.size(64.dp), tint = MaterialTheme.colorScheme.outline)
+        Icon(
+            icon,
+            contentDescription = null,
+            modifier = Modifier.size(64.dp),
+            tint = MaterialTheme.colorScheme.outline
+        )
         Text(title, style = MaterialTheme.typography.titleMedium)
         Text(
             message,
@@ -52,7 +57,9 @@ fun ErrorState(message: String, onRetry: () -> Unit, modifier: Modifier = Modifi
 @Composable
 private fun CenteredColumn(modifier: Modifier, content: @Composable () -> Unit) {
     Column(
-        modifier.fillMaxSize().padding(32.dp),
+        modifier
+            .fillMaxSize()
+            .padding(32.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) { content() }
@@ -70,4 +77,5 @@ private fun EmptyStatePreview() = ProductCatalogTheme {
 
 @Preview(showBackground = true)
 @Composable
-private fun ErrorStatePreview() = ProductCatalogTheme { ErrorState("No internet connection", onRetry = {}) }
+private fun ErrorStatePreview() =
+    ProductCatalogTheme { ErrorState("No internet connection", onRetry = {}) }

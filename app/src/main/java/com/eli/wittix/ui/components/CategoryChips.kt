@@ -41,5 +41,8 @@ fun CategoryChips(
 @Preview(showBackground = true)
 @Composable
 private fun CategoryChipsPreview() = ProductCatalogTheme {
-    CategoryChips(listOf(Category("beauty", "Beauty"), Category("furniture", "Furniture")), selected = "beauty", onSelect = {})
+    CategoryChips(
+        listOf(Category("beauty", "Beauty"), Category("furniture", "Furniture")),
+        selected = "beauty",
+        onSelect = {})
 }

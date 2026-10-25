@@ -16,11 +16,14 @@ fun AddToCartButton(enabled: Boolean, onClick: () -> Unit, modifier: Modifier = 
     Button(
         onClick = onClick,
         enabled = enabled,
-        modifier = modifier.fillMaxWidth().height(56.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp),
         shape = RoundedCornerShape(12.dp),
     ) { Text("Add to Cart") }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun AddToCartButtonPreview() = ProductCatalogTheme { AddToCartButton(enabled = true, onClick = {}) }
+private fun AddToCartButtonPreview() =
+    ProductCatalogTheme { AddToCartButton(enabled = true, onClick = {}) }

@@ -28,4 +28,5 @@ fun ProductEntity.toDetails() = ProductDetails(
 
 fun CategoryEntity.toDomain() = Category(slug = slug, name = name)
 
-fun CartItemWithProduct.toDomain() = CartItem(product = product.toProduct(), quantity = item.quantity)
+fun CartItemWithProduct.toDomain() =
+    CartItem(product = product.toProduct(), quantity = item.quantity)

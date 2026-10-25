@@ -20,12 +20,18 @@ import com.eli.wittix.theme.ProductCatalogTheme
 fun CartBottomBar(total: Double, onCheckout: () -> Unit, modifier: Modifier = Modifier) {
     Surface(modifier = modifier, shadowElevation = 8.dp) {
         Row(
-            Modifier.navigationBarsPadding().padding(16.dp),
+            Modifier
+                .navigationBarsPadding()
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(Modifier.weight(1f)) {
                 Text("Total", style = MaterialTheme.typography.labelMedium)
-                Text(total.asPrice(), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                Text(
+                    total.asPrice(),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
             }
             Button(onClick = onCheckout) { Text("Checkout") }
         }
@@ -34,4 +40,5 @@ fun CartBottomBar(total: Double, onCheckout: () -> Unit, modifier: Modifier = Mo
 
 @Preview
 @Composable
-private fun CartBottomBarPreview() = ProductCatalogTheme { CartBottomBar(total = 19.98, onCheckout = {}) }
+private fun CartBottomBarPreview() =
+    ProductCatalogTheme { CartBottomBar(total = 19.98, onCheckout = {}) }

@@ -28,15 +28,18 @@ fun ProductCard(product: Product, onClick: () -> Unit, modifier: Modifier = Modi
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp),
     ) {
         ProductImage(
-            product.thumbnail,
+            url = product.thumbnail,
             contentDescription = product.title,
-            modifier = Modifier.fillMaxWidth().height(140.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(140.dp),
         )
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(
-                product.title,
+                text = product.title,
                 style = MaterialTheme.typography.titleSmall,
                 maxLines = 2,
+                minLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
             // Doc anatomy: price + tag on the left, rating at the end of the same line.
@@ -51,5 +54,9 @@ fun ProductCard(product: Product, onClick: () -> Unit, modifier: Modifier = Modi
 @Preview
 @Composable
 private fun ProductCardPreview() = ProductCatalogTheme {
-    ProductCard(Product(1, "Essence Mascara Lash Princess", 999999.99, 7.17, 4.94, 5, "beauty", ""), onClick = {}, modifier = Modifier.width(180.dp))
+    ProductCard(
+        Product(1, "Essence Mascara Lash Princess", 999999.99, 7.17, 4.94, 5, "beauty", ""),
+        onClick = {},
+        modifier = Modifier.width(180.dp)
+    )
 }

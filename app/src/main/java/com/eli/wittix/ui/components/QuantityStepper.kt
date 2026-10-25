@@ -34,4 +34,5 @@ fun QuantityStepper(
 
 @Preview(showBackground = true)
 @Composable
-private fun QuantityStepperPreview() = ProductCatalogTheme { QuantityStepper(2, onDecrease = {}, onIncrease = {}) }
+private fun QuantityStepperPreview() =
+    ProductCatalogTheme { QuantityStepper(2, onDecrease = {}, onIncrease = {}) }

@@ -30,7 +30,8 @@ interface CartDao {
     suspend fun clear()
 
     @Transaction
-    suspend fun add(productId: Long) = upsert(CartItemEntity(productId, (quantity(productId) ?: 0) + 1))
+    suspend fun add(productId: Long) =
+        upsert(CartItemEntity(productId, (quantity(productId) ?: 0) + 1))
 
     // Quantity below 1 removes the item, per spec.
     @Transaction

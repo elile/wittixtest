@@ -9,6 +9,7 @@ interface ICartRepository {
 
     // Adds 1, or increments if already in cart.
     suspend fun add(productId: Long)
+
     // Quantity below 1 removes the item.
     suspend fun setQuantity(productId: Long, quantity: Int)
     suspend fun remove(productId: Long)

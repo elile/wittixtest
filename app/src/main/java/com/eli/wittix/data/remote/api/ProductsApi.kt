@@ -9,7 +9,10 @@ import retrofit2.http.Query
 
 interface ProductsApi {
     @GET("products")
-    suspend fun getProducts(@Query("limit") limit: Int, @Query("skip") skip: Int): ProductsResponseDto
+    suspend fun getProducts(
+        @Query("limit") limit: Int,
+        @Query("skip") skip: Int
+    ): ProductsResponseDto
 
     @GET("products/search")
     suspend fun searchProducts(

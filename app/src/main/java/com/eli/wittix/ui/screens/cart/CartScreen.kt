@@ -73,7 +73,12 @@ fun CartContent(
                 },
                 actions = {
                     if (items.isNotEmpty()) {
-                        IconButton(onClick = onClear) { Icon(Icons.Default.Delete, contentDescription = "Clear cart") }
+                        IconButton(onClick = onClear) {
+                            Icon(
+                                Icons.Default.Delete,
+                                contentDescription = "Clear cart"
+                            )
+                        }
                     }
                 },
             )
@@ -83,13 +88,20 @@ fun CartContent(
         val modifier = Modifier.padding(padding)
         when {
             state.isLoading -> LoadingState(modifier)
-            state.error != null -> EmptyState(Icons.Default.Warning, "Couldn't load cart", state.error, modifier)
+            state.error != null -> EmptyState(
+                Icons.Default.Warning,
+                "Couldn't load cart",
+                state.error,
+                modifier
+            )
+
             items.isEmpty() -> EmptyState(
                 Icons.Default.ShoppingCart,
                 "Your cart is empty",
                 "Browse products and add them to your cart.",
                 modifier,
             )
+
             else -> LazyColumn(
                 modifier,
                 contentPadding = PaddingValues(16.dp),

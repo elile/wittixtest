@@ -2,9 +2,8 @@ package com.eli.wittix.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,11 +24,10 @@ fun Double.asPrice() = "$" + String.format(Locale.US, "%.2f", this)
 // FlowRow + single-line texts: long prices wrap the extras instead of squeezing them.
 @Composable
 fun PriceRow(product: Product, modifier: Modifier = Modifier, showOriginalPrice: Boolean = true) {
-    FlowRow(
+    Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalArrangement = Arrangement.spacedBy(2.dp),
-        itemVerticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             product.price.asPrice(),
@@ -64,5 +62,11 @@ fun PriceRow(product: Product, modifier: Modifier = Modifier, showOriginalPrice:
 @Preview(showBackground = true)
 @Composable
 private fun PriceRowPreview() = ProductCatalogTheme {
-    PriceRow(Product(1, "Charger SXT RWD", 32999.99, 8.23, 4.1, 5, "vehicle", ""), Modifier.width(160.dp))
+    PriceRow(
+        Product(
+            1,
+            "Charger SXT RWD",
+            32999.99, 8.23, 4.1, 5, "vehicle", ""
+        )
+    )
 }

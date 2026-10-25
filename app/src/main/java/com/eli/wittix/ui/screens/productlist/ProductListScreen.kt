@@ -93,13 +93,30 @@ fun ProductListContent(
             )
         },
     ) { padding ->
-        Column(Modifier.padding(padding).fillMaxSize()) {
-            SearchField(state.query, onQueryChange, Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+        Column(Modifier
+            .padding(padding)
+            .fillMaxSize()) {
+            SearchField(
+                state.query,
+                onQueryChange,
+                Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
             CategoryChips(state.categories, state.selectedCategory, onCategorySelect)
             when {
-                state.products.isNotEmpty() -> ProductGrid(state, gridState, onProductClick, onRetry)
+                state.products.isNotEmpty() -> ProductGrid(
+                    state,
+                    gridState,
+                    onProductClick,
+                    onRetry
+                )
+
                 state.error != null -> ErrorState(state.error, onRetry)
-                state.isEmpty -> EmptyState(Icons.Default.Search, "No products found", "Try another search or category.")
+                state.isEmpty -> EmptyState(
+                    Icons.Default.Search,
+                    "No products found",
+                    "Try another search or category."
+                )
+
                 else -> LoadingState()
             }
         }
@@ -126,7 +143,9 @@ private fun ProductGrid(
         // Footer: spinner while paging, or retry when a page failed over cached data.
         if (state.isLoadingMore || state.error != null) {
             item(span = { GridItemSpan(maxLineSpan) }) {
-                Box(Modifier.fillMaxWidth().padding(8.dp), contentAlignment = Alignment.Center) {
+                Box(Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp), contentAlignment = Alignment.Center) {
                     if (state.isLoadingMore) CircularProgressIndicator()
                     else TextButton(onClick = onRetry) { Text("${state.error} · Retry") }
                 }

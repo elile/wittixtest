@@ -34,4 +34,5 @@ fun SearchField(value: String, onValueChange: (String) -> Unit, modifier: Modifi
 
 @Preview(showBackground = true)
 @Composable
-private fun SearchFieldPreview() = ProductCatalogTheme { SearchField(value = "phone", onValueChange = {}) }
+private fun SearchFieldPreview() =
+    ProductCatalogTheme { SearchField(value = "phone", onValueChange = {}) }

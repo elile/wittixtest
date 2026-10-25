@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.eli.wittix.domain.ICartRepository
 import com.eli.wittix.domain.IProductDetailsRepository
-import com.eli.wittix.ui.screens.userMessage
 import com.eli.wittix.ui.navigation.ProductDetailRoute
+import com.eli.wittix.ui.screens.userMessage
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -41,7 +41,8 @@ class ProductDetailViewModel(
     fun refresh() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true, error = null) }
-            repository.refresh(productId).onFailure { e -> _state.update { it.copy(error = e.userMessage()) } }
+            repository.refresh(productId)
+                .onFailure { e -> _state.update { it.copy(error = e.userMessage()) } }
             _state.update { it.copy(isLoading = false) }
         }
     }

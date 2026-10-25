@@ -14,6 +14,7 @@ data class Product(
 ) {
     val hasDiscount get() = discountPercentage > 0
     val discountLabel get() = "-${discountPercentage.roundToInt()}%"
+
     // API price is already discounted; recover the price before discount.
     val originalPrice get() = price / (1 - discountPercentage / 100)
     val inStock get() = stock > 0

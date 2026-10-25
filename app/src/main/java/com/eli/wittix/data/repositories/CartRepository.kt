@@ -8,10 +8,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class CartRepository(private val cartDao: CartDao) : ICartRepository {
-    override fun observeCart(): Flow<Cart> = cartDao.observeCart().map { list -> Cart(list.map { it.toDomain() }) }
+    override fun observeCart(): Flow<Cart> =
+        cartDao.observeCart().map { list -> Cart(list.map { it.toDomain() }) }
+
     override fun observeCount(): Flow<Int> = cartDao.observeCount()
     override suspend fun add(productId: Long) = cartDao.add(productId)
-    override suspend fun setQuantity(productId: Long, quantity: Int) = cartDao.setQuantity(productId, quantity)
+    override suspend fun setQuantity(productId: Long, quantity: Int) =
+        cartDao.setQuantity(productId, quantity)
+
     override suspend fun remove(productId: Long) = cartDao.remove(productId)
     override suspend fun clear() = cartDao.clear()
 }

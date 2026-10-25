@@ -26,16 +26,17 @@ class ProductsRepository(
         categoryDao.observeCategories().map { list -> list.map { it.toDomain() } }
 
     // API can't combine search + category; category wins (smaller set), local query applies both.
-    override suspend fun loadPage(query: String, category: String?, page: Int): Result<Boolean> = safeCall {
-        val skip = page * PAGE_SIZE
-        val res = when {
-            category != null -> api.getProductsByCategory(category, PAGE_SIZE, skip)
-            query.isNotBlank() -> api.searchProducts(query, PAGE_SIZE, skip)
-            else -> api.getProducts(PAGE_SIZE, skip)
+    override suspend fun loadPage(query: String, category: String?, page: Int): Result<Boolean> =
+        safeCall {
+            val skip = page * PAGE_SIZE
+            val res = when {
+                category != null -> api.getProductsByCategory(category, PAGE_SIZE, skip)
+                query.isNotBlank() -> api.searchProducts(query, PAGE_SIZE, skip)
+                else -> api.getProducts(PAGE_SIZE, skip)
+            }
+            productDao.upsertAll(res.products.map { it.toEntity() })
+            res.skip + res.products.size < res.total
         }
-        productDao.upsertAll(res.products.map { it.toEntity() })
-        res.skip + res.products.size < res.total
-    }
 
     override suspend fun refreshCategories(): Result<Unit> = safeCall {
         categoryDao.upsertAll(api.getCategories().map { it.toEntity() })
