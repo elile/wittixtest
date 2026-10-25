@@ -1,4 +1,4 @@
-package com.eli.wittixtest
+package com.eli.wittix
 
 import org.junit.Test
 
