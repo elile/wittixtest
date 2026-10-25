@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 @Composable
 fun AddToCartButton(enabled: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
@@ -23,4 +23,4 @@ fun AddToCartButton(enabled: Boolean, onClick: () -> Unit, modifier: Modifier = 
 
 @Preview(showBackground = true)
 @Composable
-private fun AddToCartButtonPreview() = WittixTheme { AddToCartButton(enabled = true, onClick = {}) }
+private fun AddToCartButtonPreview() = ProductCatalogTheme { AddToCartButton(enabled = true, onClick = {}) }

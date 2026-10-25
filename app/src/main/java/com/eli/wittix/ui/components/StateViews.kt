@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 @Composable
 fun LoadingState(modifier: Modifier = Modifier) {
@@ -60,14 +60,14 @@ private fun CenteredColumn(modifier: Modifier, content: @Composable () -> Unit) 
 
 @Preview(showBackground = true)
 @Composable
-private fun LoadingStatePreview() = WittixTheme { LoadingState() }
+private fun LoadingStatePreview() = ProductCatalogTheme { LoadingState() }
 
 @Preview(showBackground = true)
 @Composable
-private fun EmptyStatePreview() = WittixTheme {
+private fun EmptyStatePreview() = ProductCatalogTheme {
     EmptyState(Icons.Default.ShoppingCart, "Your cart is empty", "Add products to see them here.")
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun ErrorStatePreview() = WittixTheme { ErrorState("No internet connection", onRetry = {}) }
+private fun ErrorStatePreview() = ProductCatalogTheme { ErrorState("No internet connection", onRetry = {}) }

@@ -2,7 +2,7 @@ package com.eli.wittix.ui.components
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -14,7 +14,7 @@ class CartItemCardTest {
     fun showsItemAndFiresCallbacks() {
         val events = mutableListOf<String>()
         rule.setContent {
-            WittixTheme {
+            ProductCatalogTheme {
                 CartItemCard(
                     SampleData.cartItem,
                     onDecrease = { events += "-" },

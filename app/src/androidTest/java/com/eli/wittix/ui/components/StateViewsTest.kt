@@ -2,7 +2,7 @@ package com.eli.wittix.ui.components
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -15,13 +15,13 @@ class StateViewsTest {
 
     @Test
     fun loadingShowsSpinner() {
-        rule.setContent { WittixTheme { LoadingState() } }
+        rule.setContent { ProductCatalogTheme { LoadingState() } }
         rule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo.Indeterminate)).assertIsDisplayed()
     }
 
     @Test
     fun emptyShowsTexts() {
-        rule.setContent { WittixTheme { EmptyState(Icons.Default.ShoppingCart, "Your cart is empty", "Add products") } }
+        rule.setContent { ProductCatalogTheme { EmptyState(Icons.Default.ShoppingCart, "Your cart is empty", "Add products") } }
         rule.onNodeWithText("Your cart is empty").assertIsDisplayed()
         rule.onNodeWithText("Add products").assertIsDisplayed()
     }
@@ -29,7 +29,7 @@ class StateViewsTest {
     @Test
     fun errorRetries() {
         var retries = 0
-        rule.setContent { WittixTheme { ErrorState("No internet connection", onRetry = { retries++ }) } }
+        rule.setContent { ProductCatalogTheme { ErrorState("No internet connection", onRetry = { retries++ }) } }
         rule.onNodeWithText("No internet connection").assertIsDisplayed()
         rule.onNodeWithText("Retry").performClick()
         assertEquals(1, retries)

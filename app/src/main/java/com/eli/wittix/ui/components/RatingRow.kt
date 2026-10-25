@@ -13,7 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
+import com.eli.wittix.theme.starAmber
 import java.util.Locale
 
 @Composable
@@ -27,7 +28,7 @@ fun RatingRow(rating: Double, modifier: Modifier = Modifier) {
             Icons.Default.Star,
             contentDescription = "Rating",
             modifier = Modifier.size(16.dp),
-            tint = MaterialTheme.colorScheme.tertiary,
+            tint = MaterialTheme.colorScheme.starAmber,
         )
         Text(String.format(Locale.US, "%.1f", rating), style = MaterialTheme.typography.bodySmall)
     }
@@ -35,4 +36,4 @@ fun RatingRow(rating: Double, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun RatingRowPreview() = WittixTheme { RatingRow(4.94) }
+private fun RatingRowPreview() = ProductCatalogTheme { RatingRow(4.94) }

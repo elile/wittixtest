@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.eli.wittix.domain.models.CartItem
 import com.eli.wittix.domain.models.Product
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 @Composable
 fun CartItemCard(
@@ -33,7 +34,7 @@ fun CartItemCard(
     onRemove: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Card(modifier = modifier) {
+    ElevatedCard(modifier = modifier, elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)) {
         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             ProductImage(
                 item.product.thumbnail,
@@ -64,6 +65,6 @@ fun CartItemCard(
 
 @Preview
 @Composable
-private fun CartItemCardPreview() = WittixTheme {
+private fun CartItemCardPreview() = ProductCatalogTheme {
     CartItemCard(CartItem(Product(1, "Essence Mascara Lash Princess", 9.99, 7.17, 4.94, 5, "beauty", ""), quantity = 2), onDecrease = {}, onIncrease = {}, onRemove = {})
 }

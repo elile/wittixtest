@@ -12,8 +12,14 @@ import com.eli.wittix.screens.productlist.ProductListScreen
 fun AppNavigation() {
     val navController = rememberNavController()
     NavHost(navController, startDestination = ProductListRoute) {
-        composable<ProductListRoute> { ProductListScreen() }
-        composable<ProductDetailRoute> { ProductDetailScreen() }
-        composable<CartRoute> { CartScreen() }
+        composable<ProductListRoute> {
+            ProductListScreen(
+                onProductClick = { navController.navigate(ProductDetailRoute(it)) },
+                onCartClick = { navController.navigate(CartRoute) },
+            )
+        }
+        // ProductDetailViewModel reads productId from the route via SavedStateHandle.
+        composable<ProductDetailRoute> { ProductDetailScreen(onBack = navController::navigateUp) }
+        composable<CartRoute> { CartScreen(onBack = navController::navigateUp) }
     }
 }

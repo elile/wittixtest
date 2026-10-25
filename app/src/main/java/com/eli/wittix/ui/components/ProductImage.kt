@@ -9,7 +9,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 // Grey box while loading, on error and in previews.
 @Composable
@@ -28,4 +28,4 @@ fun ProductImage(url: String, contentDescription: String?, modifier: Modifier = 
 
 @Preview
 @Composable
-private fun ProductImagePreview() = WittixTheme { ProductImage("", contentDescription = null, Modifier.size(72.dp)) }
+private fun ProductImagePreview() = ProductCatalogTheme { ProductImage("", contentDescription = null, Modifier.size(72.dp)) }

@@ -2,7 +2,7 @@ package com.eli.wittix.ui.components
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -12,7 +12,7 @@ class RatingRowTest {
 
     @Test
     fun roundsToOneDecimal() {
-        rule.setContent { WittixTheme { RatingRow(4.94) } }
+        rule.setContent { ProductCatalogTheme { RatingRow(4.94) } }
         rule.onNodeWithText("4.9").assertIsDisplayed()
         rule.onNodeWithContentDescription("Rating").assertIsDisplayed()
     }

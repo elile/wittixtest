@@ -5,7 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 @Composable
 fun StockIndicator(stock: Int, modifier: Modifier = Modifier) {
@@ -20,4 +20,4 @@ fun StockIndicator(stock: Int, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun StockIndicatorPreview() = WittixTheme { StockIndicator(stock = 0) }
+private fun StockIndicatorPreview() = ProductCatalogTheme { StockIndicator(stock = 0) }

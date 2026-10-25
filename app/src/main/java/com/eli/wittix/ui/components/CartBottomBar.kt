@@ -14,11 +14,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 @Composable
 fun CartBottomBar(total: Double, onCheckout: () -> Unit, modifier: Modifier = Modifier) {
-    Surface(modifier = modifier, tonalElevation = 3.dp, shadowElevation = 8.dp) {
+    Surface(modifier = modifier, shadowElevation = 8.dp) {
         Row(
             Modifier.navigationBarsPadding().padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -34,4 +34,4 @@ fun CartBottomBar(total: Double, onCheckout: () -> Unit, modifier: Modifier = Mo
 
 @Preview
 @Composable
-private fun CartBottomBarPreview() = WittixTheme { CartBottomBar(total = 19.98, onCheckout = {}) }
+private fun CartBottomBarPreview() = ProductCatalogTheme { CartBottomBar(total = 19.98, onCheckout = {}) }

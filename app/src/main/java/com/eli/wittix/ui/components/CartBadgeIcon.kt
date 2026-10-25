@@ -9,7 +9,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 @Composable
 fun CartBadgeIcon(count: Int, onClick: () -> Unit) {
@@ -22,4 +22,4 @@ fun CartBadgeIcon(count: Int, onClick: () -> Unit) {
 
 @Preview
 @Composable
-private fun CartBadgeIconPreview() = WittixTheme { CartBadgeIcon(count = 3, onClick = {}) }
+private fun CartBadgeIconPreview() = ProductCatalogTheme { CartBadgeIcon(count = 3, onClick = {}) }

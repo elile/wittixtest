@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.eli.wittix.domain.models.Category
-import com.eli.wittix.theme.WittixTheme
+import com.eli.wittix.theme.ProductCatalogTheme
 
 // First chip is "All" (slug = null).
 @Composable
@@ -40,6 +40,6 @@ fun CategoryChips(
 
 @Preview(showBackground = true)
 @Composable
-private fun CategoryChipsPreview() = WittixTheme {
+private fun CategoryChipsPreview() = ProductCatalogTheme {
     CategoryChips(listOf(Category("beauty", "Beauty"), Category("furniture", "Furniture")), selected = "beauty", onSelect = {})
 }
