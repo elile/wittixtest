@@ -1,3 +1,16 @@
 package com.eli.wittix.domain
 
-interface ICartRepository
+import com.eli.wittix.domain.models.Cart
+import kotlinx.coroutines.flow.Flow
+
+interface ICartRepository {
+    fun observeCart(): Flow<Cart>
+    fun observeCount(): Flow<Int>
+
+    // Adds 1, or increments if already in cart.
+    suspend fun add(productId: Long)
+    // Quantity below 1 removes the item.
+    suspend fun setQuantity(productId: Long, quantity: Int)
+    suspend fun remove(productId: Long)
+    suspend fun clear()
+}
