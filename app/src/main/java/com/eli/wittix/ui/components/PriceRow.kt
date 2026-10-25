@@ -2,8 +2,9 @@ package com.eli.wittix.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,27 +21,33 @@ import java.util.Locale
 
 fun Double.asPrice() = "$" + String.format(Locale.US, "%.2f", this)
 
-// Price, plus struck-through original and "-X%" tag when discounted.
+// Price, plus struck-through original (detail only, per doc) and "-X%" tag when discounted.
+// FlowRow + single-line texts: long prices wrap the extras instead of squeezing them.
 @Composable
-fun PriceRow(product: Product, modifier: Modifier = Modifier) {
-    Row(
+fun PriceRow(product: Product, modifier: Modifier = Modifier, showOriginalPrice: Boolean = true) {
+    FlowRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        itemVerticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             product.price.asPrice(),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
+            maxLines = 1,
         )
         if (product.hasDiscount) {
-            Text(
-                product.originalPrice.asPrice(),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textDecoration = TextDecoration.LineThrough,
-            )
+            if (showOriginalPrice) {
+                Text(
+                    product.originalPrice.asPrice(),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textDecoration = TextDecoration.LineThrough,
+                    maxLines = 1,
+                )
+            }
             Text(
                 product.discountLabel,
                 modifier = Modifier
@@ -48,6 +55,7 @@ fun PriceRow(product: Product, modifier: Modifier = Modifier) {
                     .padding(horizontal = 4.dp),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.error,
+                maxLines = 1,
             )
         }
     }
@@ -55,4 +63,6 @@ fun PriceRow(product: Product, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun PriceRowPreview() = ProductCatalogTheme { PriceRow(Product(1, "Essence Mascara Lash Princess", 9.99, 7.17, 4.94, 5, "beauty", "")) }
+private fun PriceRowPreview() = ProductCatalogTheme {
+    PriceRow(Product(1, "Charger SXT RWD", 32999.99, 8.23, 4.1, 5, "vehicle", ""), Modifier.width(160.dp))
+}
