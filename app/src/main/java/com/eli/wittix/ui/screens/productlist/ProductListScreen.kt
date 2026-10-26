@@ -1,7 +1,5 @@
 package com.eli.wittix.ui.screens.productlist
 
-import androidx.compose.ui.res.stringResource
-import com.eli.wittix.R
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,9 +35,11 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.eli.wittix.R
 import com.eli.wittix.domain.models.Category
 import com.eli.wittix.domain.models.Product
 import com.eli.wittix.theme.ProductCatalogTheme
@@ -102,7 +102,11 @@ fun ProductListContent(
     val headerScroll = remember(threshold) {
         object : NestedScrollConnection {
             var distance = 0f
-            override fun onPostScroll(consumed: Offset, available: Offset, source: NestedScrollSource): Offset {
+            override fun onPostScroll(
+                consumed: Offset,
+                available: Offset,
+                source: NestedScrollSource
+            ): Offset {
                 val dy = consumed.y
                 if (dy == 0f) return Offset.Zero
                 if (dy * distance < 0) distance = 0f
@@ -122,10 +126,12 @@ fun ProductListContent(
             )
         },
     ) { padding ->
-        Column(Modifier
-            .padding(padding)
-            .fillMaxSize()
-            .nestedScroll(headerScroll)) {
+        Column(
+            Modifier
+                .padding(padding)
+                .fillMaxSize()
+                .nestedScroll(headerScroll)
+        ) {
             // Bar shows on every sync; without products the full-screen error takes over.
             SyncStatus(state.isLoading, state.error.takeIf { state.products.isNotEmpty() }, onRetry)
             // Always shown without products, so empty/error states can still change filters.
@@ -178,9 +184,11 @@ private fun ProductGrid(
         // Footer spinner while paging; failures show in SyncStatus.
         if (state.isLoadingMore) {
             item(span = { GridItemSpan(maxLineSpan) }, contentType = "footer") {
-                Box(Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp), contentAlignment = Alignment.Center) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp), contentAlignment = Alignment.Center
+                ) {
                     CircularProgressIndicator()
                 }
             }
