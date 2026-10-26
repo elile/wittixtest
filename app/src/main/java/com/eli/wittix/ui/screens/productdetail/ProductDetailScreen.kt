@@ -2,14 +2,20 @@ package com.eli.wittix.ui.screens.productdetail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Category
+import androidx.compose.material.icons.filled.Shop
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -18,13 +24,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -35,6 +41,7 @@ import com.eli.wittix.domain.models.Product
 import com.eli.wittix.domain.models.ProductDetails
 import com.eli.wittix.theme.ProductCatalogTheme
 import com.eli.wittix.ui.components.AddToCartButton
+import com.eli.wittix.ui.components.CategoryChip
 import com.eli.wittix.ui.components.ErrorState
 import com.eli.wittix.ui.components.LoadingState
 import com.eli.wittix.ui.components.PriceRow
@@ -121,14 +128,20 @@ private fun DetailsBody(details: ProductDetails, modifier: Modifier) {
                 .height(300.dp),
         )
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            SuggestionChip(onClick = {}, label = { Text(product.category) })
+            CategoryChip(name = product.category, selected = true, onClick = {})
             Text(
                 product.title,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
-            RatingRow(product.rating)
-            StockIndicator(product.stock)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                RatingRow(product.rating)
+                StockIndicator(product.stock)
+            }
+
             PriceRow(product)
             details.brand?.let { Text("Brand: $it", style = MaterialTheme.typography.bodyMedium) }
             HorizontalDivider(Modifier.padding(vertical = 8.dp))

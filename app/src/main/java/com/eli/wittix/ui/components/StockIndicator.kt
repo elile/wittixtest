@@ -11,10 +11,10 @@ import com.eli.wittix.theme.ProductCatalogTheme
 fun StockIndicator(stock: Int, modifier: Modifier = Modifier) {
     val inStock = stock > 0
     Text(
-        if (inStock) "In stock ($stock)" else "Out of stock",
+        if (inStock) "$stock in stock" else "Out of stock",
         modifier = modifier,
         style = MaterialTheme.typography.bodyMedium,
-        color = if (inStock) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.error,
+        color = if (inStock) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
     )
 }
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
@@ -31,18 +32,32 @@ fun CategoryChips(
     ) {
         items(all, key = { it.slug }) { category ->
             val slug = category.slug.ifEmpty { null }
-            FilterChip(
+            CategoryChip(
+                name = category.name,
                 selected = slug == selected,
                 onClick = { onSelect(slug) },
-                label = { Text(category.name) },
-                // M3 default is secondaryContainer; doc wants primaryContainer.
-                colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                    selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                ),
             )
         }
     }
+}
+
+@Composable
+fun CategoryChip(
+    name: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    FilterChip(
+        shape = RoundedCornerShape(16.dp),
+        selected = selected,
+        onClick = onClick,
+        label = { Text(name) },
+        // M3 default is secondaryContainer; doc wants primaryContainer.
+        colors = FilterChipDefaults.filterChipColors(
+            selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+            selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        ),
+    )
 }
 
 @Preview(showBackground = true)

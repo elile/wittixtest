@@ -77,7 +77,7 @@ fun ProductListContent(
     val nearEnd by remember {
         derivedStateOf {
             val last = gridState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1
-            last >= gridState.layoutInfo.totalItemsCount - 6
+            last >= gridState.layoutInfo.totalItemsCount - 2
         }
     }
     // Re-keyed on load flags so it re-checks after every finished load.
