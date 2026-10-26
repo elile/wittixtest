@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.screens.cart
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,6 +40,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun CartScreen(onBack: () -> Unit, viewModel: CartViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val comingSoon = stringResource(R.string.checkout_coming_soon)
     CartContent(
         state = state,
         onBack = onBack,
@@ -46,7 +49,7 @@ fun CartScreen(onBack: () -> Unit, viewModel: CartViewModel = koinViewModel()) {
         onRemove = viewModel::remove,
         onClear = viewModel::clear,
         // Checkout is out of scope for the assignment.
-        onCheckout = { Toast.makeText(context, "Checkout coming soon", Toast.LENGTH_SHORT).show() },
+        onCheckout = { Toast.makeText(context, comingSoon, Toast.LENGTH_SHORT).show() },
     )
 }
 
@@ -65,10 +68,10 @@ fun CartContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Shopping Cart") },
+                title = { Text(stringResource(R.string.cart_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 actions = {
@@ -76,7 +79,7 @@ fun CartContent(
                         IconButton(onClick = onClear) {
                             Icon(
                                 Icons.Default.Delete,
-                                contentDescription = "Clear cart"
+                                contentDescription = stringResource(R.string.clear_cart)
                             )
                         }
                     }
@@ -90,15 +93,15 @@ fun CartContent(
             state.isLoading -> LoadingState(modifier)
             state.error != null -> EmptyState(
                 Icons.Default.Warning,
-                "Couldn't load cart",
-                state.error,
+                stringResource(R.string.cart_load_error),
+                stringResource(state.error),
                 modifier
             )
 
             items.isEmpty() -> EmptyState(
                 Icons.Default.ShoppingCart,
-                "Your cart is empty",
-                "Browse products and add them to your cart.",
+                stringResource(R.string.cart_empty_title),
+                stringResource(R.string.cart_empty_message),
                 modifier,
             )
 

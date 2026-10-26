@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -26,7 +28,7 @@ fun RatingRow(rating: Double, modifier: Modifier = Modifier) {
     ) {
         Icon(
             Icons.Default.Star,
-            contentDescription = "Rating",
+            contentDescription = stringResource(R.string.rating),
             modifier = Modifier.size(16.dp),
             tint = MaterialTheme.colorScheme.starAmber,
         )

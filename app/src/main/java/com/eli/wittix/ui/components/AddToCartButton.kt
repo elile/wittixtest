@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,7 +32,7 @@ fun AddToCartButton(enabled: Boolean, onClick: () -> Unit, modifier: Modifier = 
     ) {
         Icon(Icons.Default.ShoppingCart, contentDescription = null, Modifier.size(ButtonDefaults.IconSize))
         Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-        Text("Add to Cart")
+        Text(stringResource(R.string.add_to_cart))
     }
 }
 

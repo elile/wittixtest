@@ -1,5 +1,6 @@
 package com.eli.wittix.screens.cart
 
+import com.eli.wittix.R
 import com.eli.wittix.domain.ICartRepository
 import com.eli.wittix.domain.models.Cart
 import com.eli.wittix.ui.screens.cart.CartViewModel
@@ -40,7 +41,7 @@ class CartViewModelTest {
         val vm = CartViewModel(repo)
         backgroundScope.launch { vm.state.collect {} }   // WhileSubscribed needs a collector
         advanceUntilIdle()
-        assertEquals("Something went wrong", vm.state.value.error)
+        assertEquals(R.string.error_generic, vm.state.value.error)
         assertFalse(vm.state.value.isLoading)
     }
 }

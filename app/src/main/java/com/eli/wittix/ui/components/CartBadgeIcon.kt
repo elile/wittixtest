@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -23,7 +25,7 @@ fun CartBadgeIcon(count: Int, onClick: () -> Unit) {
         },
     ) {
         IconButton(onClick = onClick) {
-            Icon(Icons.Default.ShoppingCart, contentDescription = "Cart")
+            Icon(Icons.Default.ShoppingCart, contentDescription = stringResource(R.string.cart))
         }
     }
 }

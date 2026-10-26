@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -26,14 +28,14 @@ fun CartBottomBar(total: Double, onCheckout: () -> Unit, modifier: Modifier = Mo
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Column(Modifier.weight(1f)) {
-                Text("Total", style = MaterialTheme.typography.labelMedium)
+                Text(stringResource(R.string.cart_total), style = MaterialTheme.typography.labelMedium)
                 Text(
                     total.asPrice(),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
             }
-            Button(onClick = onCheckout) { Text("Checkout") }
+            Button(onClick = onCheckout) { Text(stringResource(R.string.checkout)) }
         }
     }
 }

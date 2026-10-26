@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.screens.productlist
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -115,7 +117,7 @@ fun ProductListContent(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Product Catalog") },
+                title = { Text(stringResource(R.string.product_list_title)) },
                 actions = { CartBadgeIcon(state.cartCount, onCartClick) },
             )
         },
@@ -143,11 +145,11 @@ fun ProductListContent(
                     onRetry
                 )
 
-                state.error != null -> ErrorState(state.error, onRetry)
+                state.error != null -> ErrorState(stringResource(state.error), onRetry)
                 state.isEmpty -> EmptyState(
                     Icons.Default.Search,
-                    "No products found",
-                    "Try another search or category."
+                    stringResource(R.string.no_products_title),
+                    stringResource(R.string.no_products_message)
                 )
 
                 else -> LoadingState()
@@ -180,7 +182,11 @@ private fun ProductGrid(
                     .fillMaxWidth()
                     .padding(8.dp), contentAlignment = Alignment.Center) {
                     if (state.isLoadingMore) CircularProgressIndicator()
-                    else TextButton(onClick = onRetry) { Text("${state.error} · Retry") }
+                    else state.error?.let { error ->
+                        TextButton(onClick = onRetry) {
+                            Text(stringResource(R.string.error_with_retry, stringResource(error)))
+                        }
+                    }
                 }
             }
         }

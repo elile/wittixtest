@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -72,7 +74,7 @@ fun CartItemCard(
                     IconButton(onClick = onRemove) {
                         Icon(
                             Icons.Default.Delete,
-                            contentDescription = "Remove ${item.product.title}",
+                            contentDescription = stringResource(R.string.remove_item, item.product.title),
                             tint = MaterialTheme.colorScheme.error,
                         )
                     }

@@ -1,5 +1,6 @@
 package com.eli.wittix.screens.productlist
 
+import com.eli.wittix.R
 import com.eli.wittix.domain.ICartRepository
 import com.eli.wittix.domain.IProductsRepository
 import com.eli.wittix.domain.models.Cart
@@ -61,7 +62,7 @@ class ProductListViewModelTest {
 
         next = Result.failure(IOException())
         vm.loadMore(); advanceUntilIdle()
-        assertEquals("No internet connection", vm.state.value.error)
+        assertEquals(R.string.error_no_internet, vm.state.value.error)
         vm.loadMore(); advanceUntilIdle()              // blocked by error
         assertEquals(4, calls.size)
 

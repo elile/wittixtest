@@ -1,5 +1,6 @@
 package com.eli.wittix.screens.productdetail
 
+import com.eli.wittix.R
 import androidx.lifecycle.SavedStateHandle
 import com.eli.wittix.domain.ICartRepository
 import com.eli.wittix.domain.IProductDetailsRepository
@@ -49,12 +50,12 @@ class ProductDetailViewModelTest {
     fun errorThenRetry() = runTest(dispatcher) {
         val vm = ProductDetailViewModel(repo, cartRepo, SavedStateHandle(mapOf("productId" to 1L)))
         advanceUntilIdle()
-        assertEquals("No internet connection", vm.state.value.error)
+        assertEquals(R.string.error_no_internet, vm.state.value.error)
         assertFalse(vm.state.value.isLoading)
 
         next = Result.failure(IllegalStateException())
         vm.refresh(); advanceUntilIdle()
-        assertEquals("Something went wrong", vm.state.value.error)
+        assertEquals(R.string.error_generic, vm.state.value.error)
 
         next = Result.success(Unit)
         vm.refresh(); advanceUntilIdle()

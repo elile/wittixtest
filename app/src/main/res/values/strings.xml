@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">WittixTest</string>
+
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="retry">Retry</string>
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_generic">Something went wrong</string>
+
+    <!-- Product list -->
+    <string name="product_list_title">Product Catalog</string>
+    <string name="search_placeholder">Search products</string>
+    <string name="clear_search">Clear search</string>
+    <string name="category_all">All</string>
+    <string name="no_products_title">No products found</string>
+    <string name="no_products_message">Try another search or category.</string>
+    <string name="error_with_retry">%1$s · Retry</string>
+    <string name="cart">Cart</string>
+    <string name="rating">Rating</string>
+
+    <!-- Product detail -->
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="added_to_cart">%1$s added to cart</string>
+    <string name="brand">Brand: %1$s</string>
+    <string name="description">Description</string>
+    <string name="in_stock">%1$d in stock</string>
+    <string name="out_of_stock">Out of stock</string>
+
+    <!-- Cart -->
+    <string name="cart_title">Shopping Cart</string>
+    <string name="clear_cart">Clear cart</string>
+    <string name="cart_load_error">Couldn\'t load cart</string>
+    <string name="cart_empty_title">Your cart is empty</string>
+    <string name="cart_empty_message">Browse products and add them to your cart.</string>
+    <string name="cart_total">Total</string>
+    <string name="checkout">Checkout</string>
+    <string name="checkout_coming_soon">Checkout coming soon</string>
+    <string name="decrease_quantity">Decrease quantity</string>
+    <string name="increase_quantity">Increase quantity</string>
+    <string name="remove_item">Remove %1$s</string>
 </resources>

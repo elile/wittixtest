@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
@@ -24,7 +26,7 @@ fun CategoryChips(
     onSelect: (String?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val all = listOf(Category(slug = "", name = "All")) + categories
+    val all = listOf(Category(slug = "", name = stringResource(R.string.category_all))) + categories
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp),

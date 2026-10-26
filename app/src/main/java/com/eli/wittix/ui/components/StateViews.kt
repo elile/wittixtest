@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,7 +52,7 @@ fun EmptyState(icon: ImageVector, title: String, message: String, modifier: Modi
 fun ErrorState(message: String, onRetry: () -> Unit, modifier: Modifier = Modifier) {
     CenteredColumn(modifier) {
         Text(message, style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
-        Button(onClick = onRetry) { Text("Retry") }
+        Button(onClick = onRetry) { Text(stringResource(R.string.retry)) }
     }
 }
 

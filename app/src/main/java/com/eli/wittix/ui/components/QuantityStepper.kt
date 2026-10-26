@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -23,11 +25,11 @@ fun QuantityStepper(
 ) {
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = onDecrease) {
-            Icon(Icons.Default.Remove, contentDescription = "Decrease quantity")
+            Icon(Icons.Default.Remove, contentDescription = stringResource(R.string.decrease_quantity))
         }
         Text("$quantity", style = MaterialTheme.typography.titleMedium)
         IconButton(onClick = onIncrease) {
-            Icon(Icons.Default.Add, contentDescription = "Increase quantity")
+            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.increase_quantity))
         }
     }
 }

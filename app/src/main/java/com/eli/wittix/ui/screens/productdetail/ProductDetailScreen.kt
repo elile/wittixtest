@@ -1,5 +1,8 @@
 package com.eli.wittix.ui.screens.productdetail
 
+import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -55,8 +58,11 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ProductDetailScreen(onBack: () -> Unit, viewModel: ProductDetailViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
+    val resources = LocalResources.current
     LaunchedEffect(Unit) {
-        viewModel.messages.collect { snackbarHostState.showSnackbar(it) }
+        viewModel.addedToCart.collect {
+            snackbarHostState.showSnackbar(resources.getString(R.string.added_to_cart, it))
+        }
     }
     ProductDetailContent(
         state = state,
@@ -89,7 +95,7 @@ fun ProductDetailContent(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
             )
@@ -111,7 +117,7 @@ fun ProductDetailContent(
         when {
             // Cached product wins over a failed refresh (offline first).
             details != null -> DetailsBody(details, modifier)
-            state.error != null -> ErrorState(state.error, onRetry, modifier)
+            state.error != null -> ErrorState(stringResource(state.error), onRetry, modifier)
             else -> LoadingState(modifier)
         }
     }
@@ -145,10 +151,10 @@ private fun DetailsBody(details: ProductDetails, modifier: Modifier) {
             }
 
             PriceRow(product)
-            details.brand?.let { Text("Brand: $it", style = MaterialTheme.typography.bodyMedium) }
+            details.brand?.let { Text(stringResource(R.string.brand, it), style = MaterialTheme.typography.bodyMedium) }
             HorizontalDivider(Modifier.padding(vertical = 8.dp))
             Text(
-                "Description",
+                stringResource(R.string.description),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold
             )

@@ -1,5 +1,7 @@
 package com.eli.wittix.ui.components
 
+import androidx.compose.ui.res.stringResource
+import com.eli.wittix.R
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -21,12 +23,12 @@ fun SearchField(value: String, onValueChange: (String) -> Unit, modifier: Modifi
         value = value,
         onValueChange = onValueChange,
         modifier = modifier.fillMaxWidth(),
-        placeholder = { Text("Search products") },
+        placeholder = { Text(stringResource(R.string.search_placeholder)) },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         trailingIcon = {
             if (value.isNotEmpty()) {
                 IconButton(onClick = { onValueChange("") }) {
-                    Icon(Icons.Default.Clear, contentDescription = "Clear search")
+                    Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear_search))
                 }
             }
         },

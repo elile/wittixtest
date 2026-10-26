@@ -27,9 +27,9 @@ class ProductDetailViewModel(
     private val _state = MutableStateFlow(ProductDetailUiState(isLoading = true))
     val state = _state.asStateFlow()
 
-    // One-off snackbar messages; not state, so they don't replay on rotation.
-    private val _messages = Channel<String>(Channel.BUFFERED)
-    val messages = _messages.receiveAsFlow()
+    // One-off "added to cart" events (product title); not state, so they don't replay on rotation.
+    private val _addedToCart = Channel<String>(Channel.BUFFERED)
+    val addedToCart = _addedToCart.receiveAsFlow()
 
     init {
         repository.observeProduct(productId)
@@ -52,7 +52,7 @@ class ProductDetailViewModel(
         if (!product.inStock) return
         viewModelScope.launch {
             cartRepository.add(productId)
-            _messages.send("${product.title} added to cart")
+            _addedToCart.send(product.title)
         }
     }
 }
