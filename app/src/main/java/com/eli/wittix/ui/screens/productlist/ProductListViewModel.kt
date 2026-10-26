@@ -41,19 +41,28 @@ class ProductListViewModel(
     ).distinctUntilChanged()
 
     init {
+        // Cached categories feed the chips.
         repository.observeCategories()
             .onEach { list -> _state.update { it.copy(categories = list) } }
             .launchIn(viewModelScope)
+
+        // Cart total drives the top bar badge.
         cartRepository.observeCount()
             .onEach { count -> _state.update { it.copy(cartCount = count) } }
             .launchIn(viewModelScope)
+
+        // Grid shows DB rows matching current filters. flatMapLatest cancels the
         debouncedFilters
+            // filters change, the old query is cancelled
             .flatMapLatest { (q, c) -> repository.observeProducts(q, c) }
             .onEach { list -> _state.update { it.copy(products = list) } }
             .launchIn(viewModelScope)
+
+        // New filters refetch page 0 from network.
         debouncedFilters
             .onEach { filters = it; load(0) }
             .launchIn(viewModelScope)
+
         // Failure is fine: chips fall back to cached categories.
         viewModelScope.launch { repository.refreshCategories() }
     }
