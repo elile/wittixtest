@@ -31,6 +31,7 @@ fun ProductCard(product: Product, onClick: () -> Unit, modifier: Modifier = Modi
             url = product.thumbnail,
             contentDescription = product.title,
             modifier = Modifier
+                .sharedProductImage(product.id)
                 .fillMaxWidth()
                 .height(140.dp),
         )

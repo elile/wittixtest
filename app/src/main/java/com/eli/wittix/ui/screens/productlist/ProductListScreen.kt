@@ -1,5 +1,6 @@
 package com.eli.wittix.ui.screens.productlist
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,9 +26,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -85,6 +93,25 @@ fun ProductListContent(
         if (nearEnd) onLoadMore()
     }
 
+    // Toggle header after 64dp of real grid scroll in one direction.
+    // Counts consumed scroll only, so overscroll and header resize don't trigger it.
+    var headerVisible by remember { mutableStateOf(true) }
+    val threshold = with(LocalDensity.current) { 64.dp.toPx() }
+    val headerScroll = remember(threshold) {
+        object : NestedScrollConnection {
+            var distance = 0f
+            override fun onPostScroll(consumed: Offset, available: Offset, source: NestedScrollSource): Offset {
+                val dy = consumed.y
+                if (dy == 0f) return Offset.Zero
+                if (dy * distance < 0) distance = 0f
+                distance += dy
+                if (distance < -threshold) headerVisible = false
+                else if (distance > threshold) headerVisible = true
+                return Offset.Zero
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -95,13 +122,19 @@ fun ProductListContent(
     ) { padding ->
         Column(Modifier
             .padding(padding)
-            .fillMaxSize()) {
-            SearchField(
-                state.query,
-                onQueryChange,
-                Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-            CategoryChips(state.categories, state.selectedCategory, onCategorySelect)
+            .fillMaxSize()
+            .nestedScroll(headerScroll)) {
+            // Always shown without products, so empty/error states can still change filters.
+            AnimatedVisibility(headerVisible || state.products.isEmpty()) {
+                Column {
+                    SearchField(
+                        state.query,
+                        onQueryChange,
+                        Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    )
+                    CategoryChips(state.categories, state.selectedCategory, onCategorySelect)
+                }
+            }
             when {
                 state.products.isNotEmpty() -> ProductGrid(
                     state,

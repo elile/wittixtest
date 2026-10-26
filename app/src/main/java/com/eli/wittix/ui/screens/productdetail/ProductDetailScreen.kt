@@ -47,6 +47,7 @@ import com.eli.wittix.ui.components.LoadingState
 import com.eli.wittix.ui.components.PriceRow
 import com.eli.wittix.ui.components.ProductImage
 import com.eli.wittix.ui.components.RatingRow
+import com.eli.wittix.ui.components.sharedProductImage
 import com.eli.wittix.ui.components.StockIndicator
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -124,6 +125,7 @@ private fun DetailsBody(details: ProductDetails, modifier: Modifier) {
             details.heroImage,
             contentDescription = product.title,
             modifier = Modifier
+                .sharedProductImage(product.id)
                 .fillMaxWidth()
                 .height(300.dp),
         )

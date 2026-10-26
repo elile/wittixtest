@@ -113,6 +113,8 @@ fun CartContent(
                         onDecrease = { onDecrease(item) },
                         onIncrease = { onIncrease(item) },
                         onRemove = { onRemove(item) },
+                        // Fades removed items out and slides the rest up.
+                        modifier = Modifier.animateItem(),
                     )
                 }
             }
