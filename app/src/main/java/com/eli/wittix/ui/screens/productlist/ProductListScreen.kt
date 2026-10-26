@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -108,9 +110,7 @@ fun ProductListContent(
         object : NestedScrollConnection {
             var distance = 0f
             override fun onPostScroll(
-                consumed: Offset,
-                available: Offset,
-                source: NestedScrollSource
+                consumed: Offset, available: Offset, source: NestedScrollSource
             ): Offset {
                 val dy = consumed.y
                 if (dy == 0f) return Offset.Zero
@@ -151,8 +151,11 @@ fun ProductListContent(
                 }
             }
             when {
+                // Pass only what grid reads, so cart/query/isLoading changes skip it.
                 state.products.isNotEmpty() -> ProductGrid(
-                    state,
+                    state.products,
+                    state.hasMore,
+                    state.error == null,
                     gridState,
                     onProductClick,
                 )
@@ -172,7 +175,9 @@ fun ProductListContent(
 
 @Composable
 private fun ProductGrid(
-    state: ProductListUiState,
+    products: List<Product>,
+    hasMore: Boolean,
+    showSpinner: Boolean,
     gridState: LazyGridState,
     onProductClick: (Long) -> Unit,
 ) {
@@ -183,18 +188,15 @@ private fun ProductGrid(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(state.products, key = { it.id }, contentType = { "product" }) { product ->
+        items(products, key = { it.id }, contentType = { "product" }) { product ->
             ProductCard(product, onClick = { onProductClick(product.id) })
         }
-        // Footer spinner while paging; failures show in SyncStatus.
-        if (state.isLoadingMore) {
-            item(span = { GridItemSpan(maxLineSpan) }, contentType = "footer") {
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp), contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
+        // Footer stays while pages remain: visible footer always triggers loadMore, so no
+        // add/remove between pages (flicker, jump). Fixed height; on error only spinner hides.
+        if (hasMore) {
+            item(key = "footer", span = { GridItemSpan(maxLineSpan) }, contentType = "footer") {
+                Box(Modifier.fillMaxWidth().height(56.dp), contentAlignment = Alignment.Center) {
+                    if (showSpinner) CircularProgressIndicator()
                 }
             }
         }

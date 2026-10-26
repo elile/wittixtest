@@ -16,8 +16,8 @@ data class ProductListUiState(
     val selectedCategory: String? = null, // null = "All"
     val cartCount: Int = 0,
     val isLoading: Boolean = false, // first page
-    val isLoadingMore: Boolean = false, // bottom spinner
-    val hasMore: Boolean = true,
+    val isLoadingMore: Boolean = false, // page > 0 request in flight; guards double loadMore
+    val hasMore: Boolean = true, // server has pages left; false after last page
     @StringRes val error: Int? = null,
 ) {
     // Empty only once nothing is left to fetch, else keep paging.

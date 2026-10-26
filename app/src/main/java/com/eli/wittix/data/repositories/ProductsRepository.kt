@@ -5,6 +5,7 @@
 
 package com.eli.wittix.data.repositories
 
+import android.util.Log
 import com.eli.wittix.data.local.dao.CategoryDao
 import com.eli.wittix.data.local.dao.ProductDao
 import com.eli.wittix.data.remote.api.ProductsApi
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 const val PAGE_SIZE = 20
+private const val TAG = "ProductsRepository"
 
 class ProductsRepository(
     private val api: ProductsApi,
@@ -34,14 +36,17 @@ class ProductsRepository(
     override suspend fun loadPage(query: String, category: String?, page: Int): Result<Boolean> =
         safeCall {
             val skip = page * PAGE_SIZE
+            Log.i(TAG, "loadPage page=$page skip=$skip query='$query' category=$category")
             val res = when {
                 category != null -> api.getProductsByCategory(category, PAGE_SIZE, skip)
                 query.isNotBlank() -> api.searchProducts(query, PAGE_SIZE, skip)
                 else -> api.getProducts(PAGE_SIZE, skip)
             }
             productDao.upsertAll(res.products.map { it.toEntity() })
-            res.skip + res.products.size < res.total
-        }
+            (res.skip + res.products.size < res.total).also { hasMore ->
+                Log.d(TAG, "loadPage page=$page got=${res.products.size} total=${res.total} hasMore=$hasMore")
+            }
+        }.onFailure { Log.w(TAG, "loadPage page=$page failed", it) }
 
     override suspend fun refreshCategories(): Result<Unit> = safeCall {
         categoryDao.upsertAll(api.getCategories().map { it.toEntity() })

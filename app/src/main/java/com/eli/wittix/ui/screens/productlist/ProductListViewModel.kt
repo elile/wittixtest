@@ -24,6 +24,11 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+// Active search + category; category null = "All".
+private data class Filters(val query: String = "", val category: String? = null)
+
+// No Dispatchers.IO needed: Retrofit and Room suspend/Flow calls switch threads themselves.
+// Only light mapping and state updates run on main.
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class ProductListViewModel(
     private val repository: IProductsRepository,
@@ -34,7 +39,7 @@ class ProductListViewModel(
 
     private val query = MutableStateFlow("")
     private val category = MutableStateFlow<String?>(null)
-    private var filters = "" to null as String?
+    private var filters = Filters()
     private var page = 0
     private var loadJob: Job? = null
 
@@ -42,7 +47,7 @@ class ProductListViewModel(
     private val debouncedFilters = combine(
         query.debounce { if (it.isBlank()) 0L else 300L },
         category,
-        ::Pair,
+        ::Filters,
     ).distinctUntilChanged()
 
     init {
@@ -56,10 +61,9 @@ class ProductListViewModel(
             .onEach { count -> _state.update { it.copy(cartCount = count) } }
             .launchIn(viewModelScope)
 
-        // Grid shows DB rows matching current filters. flatMapLatest cancels the
+        // Grid shows DB rows matching current filters; flatMapLatest drops old query.
         debouncedFilters
-            // filters change, the old query is cancelled
-            .flatMapLatest { (q, c) -> repository.observeProducts(q, c) }
+            .flatMapLatest { repository.observeProducts(it.query, it.category) }
             .onEach { list -> _state.update { it.copy(products = list) } }
             .launchIn(viewModelScope)
 
@@ -94,7 +98,7 @@ class ProductListViewModel(
     private fun load(page: Int) {
         loadJob?.cancel()
         this.page = page
-        val (q, c) = filters
+
         loadJob = viewModelScope.launch {
             _state.update {
                 it.copy(
@@ -104,10 +108,16 @@ class ProductListViewModel(
                     error = null,
                 )
             }
-            repository.loadPage(q, c, page)
-                .onSuccess { more -> _state.update { it.copy(hasMore = more) } }
-                .onFailure { e -> _state.update { it.copy(error = e.userMessage()) } }
-            _state.update { it.copy(isLoading = false, isLoadingMore = false) }
+            // One update for result + loading flags, no half-done state.
+            val result = repository.loadPage(filters.query, filters.category, page)
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    isLoadingMore = false,
+                    hasMore = result.getOrDefault(it.hasMore),
+                    error = result.exceptionOrNull()?.userMessage(),
+                )
+            }
         }
     }
 }
