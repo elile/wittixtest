@@ -28,13 +28,14 @@ Android product catalog app built with Jetpack Compose on top of the [DummyJSON]
   Tradeoff: cards in the adaptive `LazyVerticalGrid` can have different heights when text is longer than usual.
 - **Product detail** – hero image, price/discount, rating, stock, brand and description. Add to cart.
 - **Cart** – change quantity, remove item, clear cart, live total. Cart badge on the list screen.
-- **Offline first** – products, categories and cart are stored in Room; the UI observes the database and network only refreshes it.
-  Cached data stays visible when a refresh fails, with a retry option.
-- **Sync status** – a thin primary progress bar under the top bar while an API sync runs (shown at least 2 s so fast syncs stay visible).
-  On failure a faded error row with **Retry** appears over cached data; Retry re-syncs without clearing it, and both hide after success.
-  Without cached data, full-screen loading/error states are shown instead of the row.
-  Product list syncs on launch and on search/filter change; product detail refreshes its product each time it opens, so the bar appears there too.
-- **Animations** – shared element image transition from list to detail; animated item removal in the cart.
+- **Sync**
+  - **Offline first** – products, categories and cart are stored in Room; the UI shows cached data right away and the network only refreshes it.
+  - **Progress bar** – a thin bar below the top bar shows while syncing, until the updated data arrives.
+  - **Retry** – if sync fails, an error row with **Retry** appears over the cached data.
+- **Animations**
+  - **Transitions** – shared element image transition from list to detail.
+  - **Slide** – search bar and filter chips slide away on scroll down and back on scroll up.
+  - **Delete** – cart items animate out when removed.
 - **Dark theme** – follows the system setting.
 
 ## Tech stack
