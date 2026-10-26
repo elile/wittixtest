@@ -12,7 +12,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 // Dev tools, debug builds only. Flip to turn on/off.
-private const val STRICT_MODE_ENABLED = true
+private const val STRICT_MODE_ENABLED = false
 private const val LEAK_CANARY_ENABLED = false
 
 class App : Application() {

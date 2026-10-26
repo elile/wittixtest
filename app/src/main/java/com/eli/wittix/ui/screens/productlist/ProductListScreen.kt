@@ -22,7 +22,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -51,6 +50,7 @@ import com.eli.wittix.ui.components.ErrorState
 import com.eli.wittix.ui.components.LoadingState
 import com.eli.wittix.ui.components.ProductCard
 import com.eli.wittix.ui.components.SearchField
+import com.eli.wittix.ui.components.SyncStatus
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -126,6 +126,8 @@ fun ProductListContent(
             .padding(padding)
             .fillMaxSize()
             .nestedScroll(headerScroll)) {
+            // Bar shows on every sync; without products the full-screen error takes over.
+            SyncStatus(state.isLoading, state.error.takeIf { state.products.isNotEmpty() }, onRetry)
             // Always shown without products, so empty/error states can still change filters.
             AnimatedVisibility(headerVisible || state.products.isEmpty()) {
                 Column {
@@ -142,7 +144,6 @@ fun ProductListContent(
                     state,
                     gridState,
                     onProductClick,
-                    onRetry
                 )
 
                 state.error != null -> ErrorState(stringResource(state.error), onRetry)
@@ -163,7 +164,6 @@ private fun ProductGrid(
     state: ProductListUiState,
     gridState: LazyGridState,
     onProductClick: (Long) -> Unit,
-    onRetry: () -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(156.dp),
@@ -172,21 +172,16 @@ private fun ProductGrid(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        items(state.products, key = { it.id }) { product ->
+        items(state.products, key = { it.id }, contentType = { "product" }) { product ->
             ProductCard(product, onClick = { onProductClick(product.id) })
         }
-        // Footer: spinner while paging, or retry when a page failed over cached data.
-        if (state.isLoadingMore || state.error != null) {
-            item(span = { GridItemSpan(maxLineSpan) }) {
+        // Footer spinner while paging; failures show in SyncStatus.
+        if (state.isLoadingMore) {
+            item(span = { GridItemSpan(maxLineSpan) }, contentType = "footer") {
                 Box(Modifier
                     .fillMaxWidth()
                     .padding(8.dp), contentAlignment = Alignment.Center) {
-                    if (state.isLoadingMore) CircularProgressIndicator()
-                    else state.error?.let { error ->
-                        TextButton(onClick = onRetry) {
-                            Text(stringResource(R.string.error_with_retry, stringResource(error)))
-                        }
-                    }
+                    CircularProgressIndicator()
                 }
             }
         }

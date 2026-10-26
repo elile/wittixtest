@@ -52,6 +52,7 @@ import com.eli.wittix.ui.components.ProductImage
 import com.eli.wittix.ui.components.RatingRow
 import com.eli.wittix.ui.components.sharedProductImage
 import com.eli.wittix.ui.components.StockIndicator
+import com.eli.wittix.ui.components.SyncStatus
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -113,12 +114,15 @@ fun ProductDetailContent(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
-        val modifier = Modifier.padding(padding)
-        when {
-            // Cached product wins over a failed refresh (offline first).
-            details != null -> DetailsBody(details, modifier)
-            state.error != null -> ErrorState(stringResource(state.error), onRetry, modifier)
-            else -> LoadingState(modifier)
+        Column(Modifier.padding(padding)) {
+            // Stays mounted across states so the bar's 2s minimum survives the first load.
+            SyncStatus(state.isLoading, state.error.takeIf { details != null }, onRetry)
+            when {
+                // Cached product wins over a failed refresh (offline first).
+                details != null -> DetailsBody(details, Modifier)
+                state.error != null -> ErrorState(stringResource(state.error), onRetry)
+                else -> LoadingState()
+            }
         }
     }
 }

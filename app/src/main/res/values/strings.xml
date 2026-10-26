@@ -14,7 +14,6 @@
     <string name="category_all">All</string>
     <string name="no_products_title">No products found</string>
     <string name="no_products_message">Try another search or category.</string>
-    <string name="error_with_retry">%1$s · Retry</string>
     <string name="cart">Cart</string>
     <string name="rating">Rating</string>
 
