@@ -30,6 +30,9 @@ android {
             }
         }
     }
+    // Stubbed android.jar returns defaults, so toRoute works in JVM tests.
+    testOptions.unitTests.isReturnDefaultValues = true
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
