@@ -88,4 +88,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    // Compile-only for App.kt; shipped in debug builds only.
+    compileOnly(libs.leakcanary.android)
+    debugImplementation(libs.leakcanary.android)
 }
