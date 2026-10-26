@@ -45,7 +45,7 @@ fun ProductCard(product: Product, onClick: () -> Unit, modifier: Modifier = Modi
                 text = product.title,
                 style = MaterialTheme.typography.titleSmall,
                 maxLines = 2,
-                minLines = 2,
+//                minLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
             // Doc anatomy: price + tag on the left, rating at the end of the same line.

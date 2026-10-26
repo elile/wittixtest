@@ -24,6 +24,8 @@ Android product catalog app built with Jetpack Compose on top of the [DummyJSON]
 
 - **Product list** – adaptive grid, infinite scroll (pages of 20), search (300 ms debounce) and category filter chips.
   Search bar and chips hide while scrolling down and reappear on scroll up.
+  The price row in each card uses `FlowRow`, so long prices wrap onto a new line instead of being squeezed or cut.
+  Tradeoff: cards in the adaptive `LazyVerticalGrid` can have different heights when text is longer than usual.
 - **Product detail** – hero image, price/discount, rating, stock, brand and description. Add to cart.
 - **Cart** – change quantity, remove item, clear cart, live total. Cart badge on the list screen.
 - **Offline first** – products, categories and cart are stored in Room; the UI observes the database and network only refreshes it.
