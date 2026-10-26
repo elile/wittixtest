@@ -27,7 +27,19 @@ Android product catalog app built with Jetpack Compose on top of the [DummyJSON]
 
 ## Architecture
 
-MVVM with a clean-ish layering:
+MVVM with **Unidirectional Data Flow (UDF)**: state flows down, events flow up.
+
+- Each ViewModel exposes a single immutable `UiState` as a `StateFlow`.
+- Screens are stateless `*Content` composables: they render `UiState` and send user events up as callbacks (`onRemove`, `onQueryChange`, …).
+- Only the ViewModel changes state, so the UI is a pure function of state and easy to preview and test.
+
+```
+User event → ViewModel → Repository → Room Flow → UiState → Compose UI
+     ↑                                                          │
+     └──────────────────────────────────────────────────────────┘
+```
+
+Layering:
 
 ```
 ui/          Compose screens, ViewModels, UiState, reusable components, navigation
