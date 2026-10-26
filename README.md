@@ -2,6 +2,24 @@
 
 Android product catalog app built with Jetpack Compose on top of the [DummyJSON](https://dummyjson.com/) API.
 
+## Screenshots
+
+| Product list | Product detail | Cart |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/product_list.png" width="250"/> | <img src="docs/screenshots/product_detail.png" width="250"/> | <img src="docs/screenshots/cart.png" width="250"/> |
+
+### Dark theme
+
+| Product list | Product detail | Cart |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/product_list_dark.png" width="250"/> | <img src="docs/screenshots/product_detail_dark.png" width="250"/> | <img src="docs/screenshots/cart_dark.png" width="250"/> |
+
+### Landscape
+
+| Product list | Product detail | Cart |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/product_list_landscape.png" width="400"/> | <img src="docs/screenshots/product_detail_landscape.png" width="400"/> | <img src="docs/screenshots/cart_landscape.png" width="400"/> |
+
 ## Features
 
 - **Product list** – adaptive grid, infinite scroll (pages of 20), search (300 ms debounce) and category filter chips.
