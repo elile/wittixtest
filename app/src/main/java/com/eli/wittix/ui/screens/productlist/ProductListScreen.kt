@@ -166,7 +166,7 @@ private fun ProductGrid(
     onRetry: () -> Unit,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(160.dp),
+        columns = GridCells.Adaptive(156.dp),
         state = gridState,
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
