@@ -79,6 +79,40 @@ Data flow: ViewModel → repository → Room `Flow` → `UiState` → Compose.
 Network calls (`loadPage`, `refreshCategories`, …) write into Room and return a `Result`, so errors become UI state instead of crashes.
 Data state (Room rows) and sync state (`isLoading`, `error`) are separate `UiState` fields, rendered by the shared `SyncStatus` component.
 
+## Database
+
+Room schema (version 1):
+
+```mermaid
+erDiagram
+    categories {
+        String slug PK
+        String name
+    }
+    products {
+        Long id PK
+        String title
+        String description
+        Double price
+        Double discountPercentage
+        Double rating
+        Int stock
+        String brand "nullable"
+        String category "indexed"
+        String thumbnail
+        List_String images "type converter"
+    }
+    cart_items {
+        Long productId PK, FK
+        Int quantity
+    }
+    categories |o..o{ products : "slug = category (no FK)"
+    products ||--o| cart_items : "id = productId (CASCADE)"
+```
+
+- `cart_items.productId` is a foreign key with `ON DELETE CASCADE`: deleting a product removes it from the cart.
+- `products.category` matches `categories.slug` by value only, so products can sync before categories.
+
 ## Requirements
 
 - Android Studio with AGP 9.4+
