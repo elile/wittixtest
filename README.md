@@ -98,7 +98,7 @@ erDiagram
         Double rating
         Int stock
         String brand "nullable"
-        String category "indexed"
+        String category "slug, indexed"
         String thumbnail
         List_String images "type converter"
     }
@@ -111,7 +111,25 @@ erDiagram
 ```
 
 - `cart_items.productId` is a foreign key with `ON DELETE CASCADE`: deleting a product removes it from the cart.
-- `products.category` matches `categories.slug` by value only, so products can sync before categories.
+- `products.category` holds the category slug (e.g. `mens-shirts`), the same value as `categories.slug`.
+  There is no foreign key, so products can sync before categories.
+- Product detail loads the category with Room `@Relation` (`ProductWithCategory`) to show its display name.
+  Until categories are cached, it falls back to the slug.
+
+### Server changes
+
+Products sync by upsert, so cached product rows update but are never deleted.
+Categories come as one full list, so `CategoryDao.replaceAll` deletes slugs missing from it and upserts the rest in one transaction:
+
+| Server change | Room eventually? | When |
+|---|---|---|
+| Move product to another category | ✅ Updated | Next time a page with that product loads; upsert overwrites `category`. |
+| Edit product (price, title…) | ✅ Updated | Next page load or detail open. |
+| Rename category | ✅ Updated | Next `refreshCategories()`, i.e. next app start. |
+| Delete a product | ❌ Never removed | Upsert never deletes; the row stays cached. |
+| Delete a category | ✅ Removed | Next `refreshCategories()`; its chip disappears. Its products stay cached. |
+
+Updates reach only products the user loads again; products on pages never revisited keep old data.
 
 ## Requirements
 

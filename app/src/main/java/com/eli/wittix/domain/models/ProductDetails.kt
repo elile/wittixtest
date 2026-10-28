@@ -10,6 +10,9 @@ data class ProductDetails(
     val description: String,
     val brand: String?,
     val images: List<String>,
+    val categoryName: String? = null,
 ) {
     val heroImage get() = images.firstOrNull() ?: product.thumbnail
+    // Falls back to slug until categories are cached.
+    val categoryLabel get() = categoryName ?: product.category
 }

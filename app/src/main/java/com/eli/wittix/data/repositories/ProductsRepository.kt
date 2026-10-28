@@ -49,6 +49,6 @@ class ProductsRepository(
         }.onFailure { Log.w(TAG, "loadPage page=$page failed", it) }
 
     override suspend fun refreshCategories(): Result<Unit> = safeCall {
-        categoryDao.upsertAll(api.getCategories().map { it.toEntity() })
+        categoryDao.replaceAll(api.getCategories().map { it.toEntity() })
     }
 }

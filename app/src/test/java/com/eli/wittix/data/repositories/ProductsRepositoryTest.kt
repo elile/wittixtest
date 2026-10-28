@@ -9,6 +9,7 @@ import com.eli.wittix.data.local.dao.CategoryDao
 import com.eli.wittix.data.local.dao.ProductDao
 import com.eli.wittix.data.local.entities.CategoryEntity
 import com.eli.wittix.data.local.entities.ProductEntity
+import com.eli.wittix.data.local.entities.ProductWithCategory
 import com.eli.wittix.data.remote.api.ProductsApi
 import com.eli.wittix.data.remote.dto.CategoryDto
 import com.eli.wittix.data.remote.dto.ProductDto
@@ -44,13 +45,14 @@ class ProductsRepositoryTest {
 
     private val productDao = object : ProductDao {
         override fun observeProducts(query: String, category: String?): Flow<List<ProductEntity>> = emptyFlow()
-        override fun observeProduct(id: Long): Flow<ProductEntity?> = emptyFlow()
+        override fun observeProduct(id: Long): Flow<ProductWithCategory?> = emptyFlow()
         override suspend fun upsertAll(products: List<ProductEntity>) { saved += products }
     }
 
     private val categoryDao = object : CategoryDao {
         override fun observeCategories(): Flow<List<CategoryEntity>> = emptyFlow()
         override suspend fun upsertAll(categories: List<CategoryEntity>) = Unit
+        override suspend fun deleteAllExcept(slugs: List<String>) = Unit
     }
 
     private val repo = ProductsRepository(api, productDao, categoryDao)

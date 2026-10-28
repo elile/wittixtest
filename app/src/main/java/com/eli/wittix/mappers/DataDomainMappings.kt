@@ -8,6 +8,7 @@ package com.eli.wittix.mappers
 import com.eli.wittix.data.local.entities.CartItemWithProduct
 import com.eli.wittix.data.local.entities.CategoryEntity
 import com.eli.wittix.data.local.entities.ProductEntity
+import com.eli.wittix.data.local.entities.ProductWithCategory
 import com.eli.wittix.domain.models.CartItem
 import com.eli.wittix.domain.models.Category
 import com.eli.wittix.domain.models.Product
@@ -24,11 +25,12 @@ fun ProductEntity.toProduct() = Product(
     thumbnail = thumbnail,
 )
 
-fun ProductEntity.toDetails() = ProductDetails(
-    product = toProduct(),
-    description = description,
-    brand = brand,
-    images = images,
+fun ProductWithCategory.toDetails() = ProductDetails(
+    product = product.toProduct(),
+    description = product.description,
+    brand = product.brand,
+    images = product.images,
+    categoryName = category?.name,
 )
 
 fun CategoryEntity.toDomain() = Category(slug = slug, name = name)
