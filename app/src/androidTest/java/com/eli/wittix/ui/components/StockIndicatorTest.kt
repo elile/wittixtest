@@ -18,7 +18,7 @@ class StockIndicatorTest {
     @Test
     fun inStock() {
         rule.setContent { ProductCatalogTheme { StockIndicator(5) } }
-        rule.onNodeWithText("In stock (5)").assertIsDisplayed()
+        rule.onNodeWithText("5 in stock").assertIsDisplayed()
     }
 
     @Test
